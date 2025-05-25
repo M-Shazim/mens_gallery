@@ -1,0 +1,69 @@
+{% extends 'store/base.html' %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <h2 class="mb-4">Checkout</h2>
+        <div class="card shadow-sm mb-4">
+            <div class="card-header bg-dark text-white">
+                <strong>Order Summary</strong>
+            </div>
+            <ul class="list-group list-group-flush">
+                {% for item in items %}
+                <li class="list-group-item d-flex align-items-center">
+                    <img src="{{ item.shoe.image.url }}" alt="{{ item.shoe.name }}" class="rounded me-3" style="width:60px; height:60px; object-fit:cover;">
+                    <div class="flex-grow-1">
+                        <div class="fw-semibold">{{ item.shoe.name }}</div>
+                        <small class="text-muted">Brand: {{ item.shoe.brand.name }}</small>
+                        <div>Qty: <strong>{{ item.quantity }}</strong></div>
+                    </div>
+                    <div class="ms-3 text-end">
+                        <span class="fw-bold">{{ item.total_price }}</span>
+                    </div>
+                </li>
+                {% endfor %}
+                <li class="list-group-item d-flex justify-content-between">
+                    <span class="fw-bold">Total</span>
+                    <span class="fw-bold text-primary">PKR: {{ total }}</span>
+                </li>
+            </ul>
+        </div>
+        <form class="card shadow-sm p-4 mb-4">
+            <h5 class="mb-3">Shipping Information</h5>
+            <div class="row mb-3">
+                <div class="col-md-6 mb-2">
+                    <input type="text" class="form-control" placeholder="Full Name" required>
+                </div>
+                <div class="col-md-6 mb-2">
+                    <input type="email" class="form-control" placeholder="Email Address" required>
+                </div>
+            </div>
+            <div class="mb-3">
+                <input type="text" class="form-control" placeholder="Address" required>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-6 mb-2">
+                    <input type="text" class="form-control" placeholder="City" required>
+                </div>
+                <div class="col-md-3 mb-2">
+                    <input type="text" class="form-control" placeholder="State" required>
+                </div>
+                <div class="col-md-3 mb-2">
+                    <input type="text" class="form-control" placeholder="ZIP Code" required>
+                </div>
+            </div>
+            <h5 class="mb-3 mt-4">Payment Method</h5>
+            <div class="mb-3">
+                <select class="form-select" required>
+                    <option value="">Select Payment Method</option>
+                    <option value="card">Credit/Debit Card</option>
+                    <option value="cod">Cash on Delivery</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-success w-100">Place Order</button>
+        </form>
+        <div class="text-center text-muted">
+            <small>By placing your order, you agree to our <a href="/terms_and_conditions/">Terms & Conditions</a>.</small>
+        </div>
+    </div>
+</div>
+{% endblock %}

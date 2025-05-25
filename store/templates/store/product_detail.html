@@ -1,0 +1,54 @@
+{% extends "store/base.html" %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-10">
+        <div class="row g-4 align-items-center">
+            <div class="col-md-6 text-center">
+                <div class="bg-white rounded shadow-sm p-3">
+                    <img src="{{ shoe.image.url }}" class="img-fluid rounded" alt="{{ shoe.name }}" style="max-height: 400px; object-fit: contain;">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-body">
+                        <h2 class="card-title mb-2">{{ shoe.name }}</h2>
+                        <h5 class="text-muted mb-3">Brand: {{ shoe.brand.name }}</h5>
+                        <h3 class="text-primary mb-3">PKR: {{ shoe.price }}</h3>
+                        <div class="mb-3">
+                            <span class="badge bg-success fs-6">In Stock: {{ shoe.stock }}</span>
+                        </div>
+                        <p class="mb-4" style="min-height: 80px;">
+                            {% if shoe.description %}
+                                {{ shoe.description }}
+                            {% else %}
+                                <span class="text-muted">No description available for this product.</span>
+                            {% endif %}
+                        </p>
+                        <form method="post" action="{% url 'add_to_cart' shoe.id %}" class="mb-3">
+                            {% csrf_token %}
+                            <div class="input-group" style="max-width: 180px;">
+                                <input type="number" name="quantity" class="form-control" value="1" min="1" max="{{ shoe.stock }}">
+                                <button class="btn btn-dark" type="submit"><i class="fa fa-shopping-cart"></i> Add to Cart</button>
+                            </div>
+                        </form>
+                        <div class="d-flex gap-2">
+                            <a href="/shop/" class="btn btn-outline-secondary btn-sm"><i class="fa fa-arrow-left"></i> Back to Shop</a>
+                            <a href="/cart/" class="btn btn-outline-primary btn-sm"><i class="fa fa-shopping-cart"></i> View Cart</a>
+                        </div>
+                        <hr class="my-4">
+                        <div>
+                            <h6 class="fw-bold mb-2">Why shop with us?</h6>
+                            <ul class="list-unstyled mb-0">
+                                <li><i class="fa fa-check text-success me-2"></i>Free & Fast Delivery</li>
+                                <li><i class="fa fa-check text-success me-2"></i>Easy 14-day Returns</li>
+                                <li><i class="fa fa-check text-success me-2"></i>6-Month Warranty</li>
+                                <li><i class="fa fa-check text-success me-2"></i>Secure Payments</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
